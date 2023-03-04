@@ -7,7 +7,7 @@ The client wants a system that allows users to book and manage their airline res
 
 Admins and Users have to create an account.  
 When the user opens the app, it should have 2 options: Login or Register.  
-When they get into the account, they have various options:  
+When they get into the account, they have various options:
 - Users should be able to view a list of available flights, including the departure and arrival times, the airline, the number of available seats, and the cost of the flight.
 - Users should be able to search for flights by date, time, origin, and destination.
 - Users should be able to book a flight by selecting the desired flight and entering their personal information.
