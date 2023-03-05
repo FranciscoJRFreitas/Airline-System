@@ -8,6 +8,7 @@ import Exceptions.MissingInfoException;
 import Exceptions.UserNotExistsException;
 import Exceptions.WrongDataException;
 import System.AirlineSystem;
+import UI.MainMenu.UserMenu;
 
 public class LoginForm extends JFrame implements ActionListener {
     private JLabel emailLabel, passwordLabel;
@@ -96,6 +97,7 @@ public class LoginForm extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, er.getMessage());
             }
 
+            new UserMenu().run();
 
         }
 

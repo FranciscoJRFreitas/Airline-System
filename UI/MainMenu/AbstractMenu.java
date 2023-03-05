@@ -1,4 +1,4 @@
-package UI.AbstractMenu;
+package UI.MainMenu;
 
 import javax.swing.*;
 
@@ -7,7 +7,9 @@ public abstract class AbstractMenu extends JFrame {
     protected JMenu fileMenu, editMenu, helpMenu;
     protected JMenuItem logoutMenuItem;
 
-    public AbstractMenu() {
+    public AbstractMenu() { }
+
+    public void run() {
         setTitle("Menu Example");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -31,9 +33,6 @@ public abstract class AbstractMenu extends JFrame {
         // set size and location
         setSize(500, 300);
         setLocationRelativeTo(null);
-
-        // show the frame
-        setVisible(true);
     }
 
     // abstract method for adding menu items

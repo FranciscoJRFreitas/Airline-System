@@ -11,14 +11,12 @@ public class AirlineSystem {
     private HashMap<String, User> usersByEmail;
     private HashMap<String, Manager> managersByEmail;
     private HashMap<String, Admin> adminsByEmail;
-    private HashMap<String, String> userByPass;
-
-
+    private HashMap<String, String> usersByPass;
 
     public AirlineSystem(){
         usersByEmail = new HashMap<>();
         managersByEmail = new HashMap<>();
-        userByPass = new HashMap<>();
+        usersByPass = new HashMap<>();
         adminsByEmail = new HashMap<>();
     }
 
@@ -55,6 +53,8 @@ public class AirlineSystem {
                 }
                 break;
         }
+        usersByPass.put(email, password);
+    }
 
     public void validate(String email, String password) throws MissingInfoException, UserNotExistsException, WrongDataException {
         if(email.equals("") || password.equals(""))
@@ -63,11 +63,8 @@ public class AirlineSystem {
         if (!(hasUser(email) || hasManager(email)))
             throw new UserNotExistsException();
 
-        if(!(userByPass.get(email).equals(password)))
+        if(!(usersByPass.get(email).equals(password)))
             throw new WrongDataException();
     }
-
-
-
 
 }

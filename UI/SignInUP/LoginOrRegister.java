@@ -1,4 +1,4 @@
-package UI;
+package UI.SignInUP;
 
 import javax.swing.*;
 import java.awt.*;

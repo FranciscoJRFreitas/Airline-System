@@ -3,8 +3,8 @@ public class UserClass extends PersonClass implements User{
     //lista das suas reservas
 
 
-    public UserClass(String username, String email, String gender){
-        super(username, email, gender);
+    public UserClass(String username, String email, String password, String gender){
+        super(username, email, password, gender);
 
 
     }
