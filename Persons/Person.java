@@ -12,7 +12,7 @@ public interface Person {
 
      String getGender();
 
-     String getUserType() ;
+   void setPassword(String newPass);
 
-     void setUserType(String userType) ;
+   String getPassword();
 }

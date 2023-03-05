@@ -1,9 +1,10 @@
-package UI;
+package UI.SignInUP;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Exceptions.MissingInfoException;
 import Exceptions.UserAlreadyExistsException;
 import System.AirlineSystem;
 
@@ -14,7 +15,7 @@ public class RegisterForm extends JFrame implements ActionListener {
     private JPasswordField passwordField;
     private JComboBox<String> userTypeBox;
     private JRadioButton maleButton, femaleButton;
-    private ButtonGroup sexGroup;
+    private ButtonGroup genderGroup;
     private JButton registerButton;
     private JButton goBackButton;
     private AirlineSystem sys;
@@ -36,7 +37,7 @@ public class RegisterForm extends JFrame implements ActionListener {
         emailLabel = new JLabel("Email:");
         passwordLabel = new JLabel("Password:");
         userTypeLabel = new JLabel("Type of User:");
-        sexLabel = new JLabel("Sex:");
+        sexLabel = new JLabel("Gender:");
 
         nameField = new JTextField(20);
         emailField = new JTextField(20);
@@ -48,9 +49,9 @@ public class RegisterForm extends JFrame implements ActionListener {
         maleButton = new JRadioButton("Male");
         femaleButton = new JRadioButton("Female");
         goBackButton = new JButton("Go Back");
-        sexGroup = new ButtonGroup();
-        sexGroup.add(maleButton);
-        sexGroup.add(femaleButton);
+        genderGroup = new ButtonGroup();
+        genderGroup.add(maleButton);
+        genderGroup.add(femaleButton);
 
         registerButton = new JButton("Register");
 
@@ -125,12 +126,12 @@ public class RegisterForm extends JFrame implements ActionListener {
 
         if (e.getSource() == registerButton) {
             // get username and password from fields
+
             String username = nameField.getText();
             String email = emailField.getText();
             String password = new String(passwordField.getPassword());
             String userType = userTypeBox.getSelectedItem().toString();
             String gender = "";
-
 
 
             // get selected radio button's label
@@ -140,26 +141,24 @@ public class RegisterForm extends JFrame implements ActionListener {
                 gender = femaleButton.getText();
             }
 
-            try {
-                sys.addPerson(username, email, password, gender, userType);
-            } catch(UserAlreadyExistsException er) {
-                JOptionPane.showMessageDialog(this, er.getMessage());
+                try {
+                    sys.addPerson(username, email, password, gender, userType);
+                    JOptionPane.showMessageDialog(this, "Account created succesfully!");
+                } catch (UserAlreadyExistsException | MissingInfoException er) {
+                    JOptionPane.showMessageDialog(this, er.getMessage());
+                }
+
+
+                System.out.printf("username: %s email: %s password: %s userType: %s sex: %s\n", username, email, password, userType, gender);
+
             }
 
-
-
-            System.out.printf("username: %s email: %s password: %s userType: %s sex: %s\n", username, email, password, userType, gender);
-
-        }
-
-        if (e.getSource() == goBackButton) {
-            // Open the register UI
-            LoginOrRegister loginOrRegister = new LoginOrRegister(sys);
-            loginOrRegister.run();
-            dispose();
-        }
-
+            if (e.getSource() == goBackButton) {
+                // Open the register UI
+                LoginOrRegister loginOrRegister = new LoginOrRegister(sys);
+                loginOrRegister.run();
+                dispose();
+            }
     }
-
 
 }

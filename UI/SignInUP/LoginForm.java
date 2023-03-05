@@ -1,13 +1,18 @@
-package UI;
+package UI.SignInUP;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import Exceptions.MissingInfoException;
+import Exceptions.UserNotExistsException;
+import Exceptions.WrongDataException;
 import System.AirlineSystem;
 
 public class LoginForm extends JFrame implements ActionListener {
-    private JLabel usernameLabel, passwordLabel;
-    private JTextField usernameField;
+    private JLabel emailLabel, passwordLabel;
+
+    private JTextField emailField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton goBackButton;
@@ -26,9 +31,9 @@ public class LoginForm extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         // create components
-        usernameLabel = new JLabel("          Username:");
+        emailLabel = new JLabel("          Email:");
         passwordLabel = new JLabel("          Password:");
-        usernameField = new JTextField(20);
+        emailField = new JTextField(20);
         passwordField = new JPasswordField(20);
         loginButton = new JButton("Login");
         goBackButton = new JButton("Go back");
@@ -38,34 +43,41 @@ public class LoginForm extends JFrame implements ActionListener {
         goBackButton.addActionListener(this);
 
         // set layout
-        setLayout(new GridBagLayout());
-
+        JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-
-        //TODO
+        c.insets = new Insets(5, 5, 5, 5);
 
         c.gridx = 0;
         c.gridy = 1;
-        add(passwordLabel, c);
+        panel.add(emailLabel, c);
 
         c.gridx = 1;
-        c.gridy = 2;
-        add(passwordField, c);
+        c.gridy = 1;
+        panel.add(emailField, c);
 
         c.gridx = 0;
-        c.gridy = 2;
-        add(passwordLabel, c);
+        c.gridy = 3;
+        panel.add(passwordLabel, c);
 
         c.gridx = 1;
-        c.gridy = 2;
-        add(passwordField, c);
+        c.gridy = 3;
+        panel.add(passwordField, c);
 
         c.gridx = 0;
         c.gridy = 5;
         c.gridwidth = 1;
-        add(goBackButton, c);
+        panel.add(goBackButton, c);
 
-        // show the frame
+        c.gridx = 1;
+        c.gridy = 4;
+        c.gridwidth = 1;
+        panel.add(loginButton, c);
+
+        // add panel to the frame
+        add(panel);
+
+        // pack the frame and show it
+        pack();
         setVisible(true);
     }
 
@@ -73,15 +85,17 @@ public class LoginForm extends JFrame implements ActionListener {
 
         if(e.getSource() == loginButton) {
             // get username and password from fields
-            String username = usernameField.getText();
+            String email = emailField.getText();
             String password = new String(passwordField.getPassword());
 
             // do login validation
-            if (username.equals("admin") && password.equals("password")) {
+            try {
+                sys.validate(email, password);
                 JOptionPane.showMessageDialog(this, "Login successful");
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password");
+            }catch(MissingInfoException | UserNotExistsException | WrongDataException er){
+                JOptionPane.showMessageDialog(this, er.getMessage());
             }
+
 
         }
 

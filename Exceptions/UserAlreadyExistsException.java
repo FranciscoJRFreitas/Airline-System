@@ -6,17 +6,14 @@ package Exceptions;
  */
 public class UserAlreadyExistsException extends Exception {
 
-    private static final String MESSAGE = "User %s already exists.";
+    private static final String MESSAGE = "User already exists.";
 
-    private String email;
-
-    public UserAlreadyExistsException(String email) {
+    public UserAlreadyExistsException() {
         super(MESSAGE);
-        this.email = email;
     }
 
     @Override
     public String getMessage() {
-        return String.format(MESSAGE, email);
+        return String.format(MESSAGE);
     }
 }

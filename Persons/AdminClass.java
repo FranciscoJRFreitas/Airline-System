@@ -2,9 +2,8 @@ package Persons;
 public class AdminClass extends PersonClass implements Admin{
     //coisas do admin
 
-    public AdminClass(String name, String email, String gender) {
-        super(name, email, gender);
-
+    public AdminClass(String name, String email, String password, String gender) {
+        super(name, email, password, gender);
     }
 
     @Override
