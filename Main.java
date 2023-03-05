@@ -1,10 +1,10 @@
-import UI.LoginForm;
-import UI.RegisterForm;
+
+import UI.LoginOrRegister;
 
 public class Main {
 
     public static void main (String[] args){
-        //new LoginForm();
+        new LoginOrRegister();
         //new RegisterForm();
     }
 }
