@@ -1,3 +1,5 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -49,9 +51,8 @@ public class LoginOrRegister extends JFrame implements ActionListener {
         }
     }
 
-/*    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         // Create and show the frame
-        LoginOrRegister loginOrRegisterUI = new LoginOrRegister();
-        loginOrRegisterUI.setVisible(true);
+
     }*/
 }
