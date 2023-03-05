@@ -1,4 +1,5 @@
-public interface Admin {
+package Persons;
+public interface Admin extends Person{
 
     void addFlight();
 

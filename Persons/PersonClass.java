@@ -1,23 +1,22 @@
-public class PersonClass implements Person{
-    private String name;
+public abstract class PersonClass implements Person {
+    private String username;
     private String email;
     private String gender;
-    private String userType;
 
-    public PersonClass(String name, String email, String gender, String userType) {
-        this.name = name;
+
+    public PersonClass(String username, String email, String gender) {
+        this.username = username;
         this.email = email;
         this.gender = gender;
-        this.userType = userType;
     }
 
     @Override
     public String getName() {
-        return name;
+        return username;
     }
     @Override
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
     @Override
     public String getEmail() {

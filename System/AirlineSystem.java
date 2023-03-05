@@ -1,45 +1,42 @@
 package System;
 
-import Events.RegisterPersonEvent;
-import UI.LoginOrRegister;
+import Exceptions.*;
+import Persons.*;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
-public class ArlineSystem {
+public class AirlineSystem {
 
     private HashMap<String, User> usersByUsername;
     private HashMap<String, Admin> adminByID;
-    private RegisterPersonEvent registerPerson;
-    
 
-    public ArlineSystem(){
+
+
+    public AirlineSystem(){
         usersByUsername = new HashMap<>();
         adminByID = new HashMap<>();
-        registerPerson = new RegisterPersonEvent();
+
     }
 
     private boolean hasUser(String email){return usersByUsername.containsKey(email);}
     private boolean hasAdmin(String email){return adminByID.containsKey(email);}
 
-    public void addPerson() throws UserAlreadyExistsException {
-        String username = registerPerson.getUsername();
-        String email = registerPerson.getEmail();
-        String gender = registerPerson.getGender();
-        String userType = registerPerson.getUserType();
+    public void addPerson(String username, String email, String password, String gender, String userType) throws UserAlreadyExistsException {
         if(userType.equals("User")) {
             if (hasUser(email))
-                throw new UserAlreadyExistsException();
+                throw new UserAlreadyExistsException(email);
             else {
                 User p = new UserClass(username, email, gender);
                 usersByUsername.put(email, p);
             }
         }else if(userType.equals("Admin")){
             if(hasAdmin(email))
-                throw new UserAlreadyExistsException();
+                throw new UserAlreadyExistsException(email);
             else{
 
-                Admin a = new AdminClass()
+                Admin a = new AdminClass(username, email, gender);
+                adminByID.put(email, a);
             }
 
 

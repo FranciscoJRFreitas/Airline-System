@@ -1,3 +1,4 @@
+package Persons;
 public interface Person {
     String getName() ;
 
@@ -9,7 +10,7 @@ public interface Person {
 
      void setEmail(String email) ;
 
-     String getGender() ;
+     String getGender();
 
      String getUserType() ;
 

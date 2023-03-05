@@ -1,8 +1,12 @@
-
+import UI.LoginOrRegister;
+import System.AirlineSystem;
 public class Main {
 
     public static void main (String[] args){
-        ArlineSystem fly = new ArlineSystem();
+        AirlineSystem fly = new AirlineSystem();
+
+        LoginOrRegister loginOrRegisterUI = new LoginOrRegister(fly);
+        loginOrRegisterUI.run();
 
     }
 }

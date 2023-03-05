@@ -4,7 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Exceptions.UserAlreadyExistsException;
+import System.AirlineSystem;
+
 public class RegisterForm extends JFrame implements ActionListener {
+
     private JLabel nameLabel, emailLabel, passwordLabel, userTypeLabel, sexLabel;
     private JTextField nameField, emailField;
     private JPasswordField passwordField;
@@ -12,8 +16,15 @@ public class RegisterForm extends JFrame implements ActionListener {
     private JRadioButton maleButton, femaleButton;
     private ButtonGroup sexGroup;
     private JButton registerButton;
+    private JButton goBackButton;
+    private AirlineSystem sys;
 
-    public RegisterForm() {
+    public RegisterForm(AirlineSystem sys) {
+        this.sys = sys;
+
+    }
+
+    public void run() {
         setTitle("Registration Form");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 250);
@@ -36,6 +47,7 @@ public class RegisterForm extends JFrame implements ActionListener {
 
         maleButton = new JRadioButton("Male");
         femaleButton = new JRadioButton("Female");
+        goBackButton = new JButton("Go Back");
         sexGroup = new ButtonGroup();
         sexGroup.add(maleButton);
         sexGroup.add(femaleButton);
@@ -44,6 +56,7 @@ public class RegisterForm extends JFrame implements ActionListener {
 
         // add action listener to button
         registerButton.addActionListener(this);
+        goBackButton.addActionListener(this);
 
         // set layout
         setLayout(new GridBagLayout());
@@ -99,26 +112,54 @@ public class RegisterForm extends JFrame implements ActionListener {
         c.gridwidth = 2;
         add(registerButton, c);
 
+        c.gridx = 0;
+        c.gridy = 5;
+        c.gridwidth = 1;
+        add(goBackButton, c);
+
         // show the frame
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
-        // get username and password from fields
-        String name = nameField.getText();
-        String email = emailField.getText();
-        String password = new String(passwordField.getPassword());
-        String userType = userTypeBox.getSelectedItem().toString();
-        String sex = "";
 
-        // get selected radio button's label
-        if (maleButton.isSelected()) {
-            sex = maleButton.getText();
-        } else if (femaleButton.isSelected()) {
-            sex = femaleButton.getText();
+        if (e.getSource() == registerButton) {
+            // get username and password from fields
+            String username = nameField.getText();
+            String email = emailField.getText();
+            String password = new String(passwordField.getPassword());
+            String userType = userTypeBox.getSelectedItem().toString();
+            String gender = "";
+
+
+
+            // get selected radio button's label
+            if (maleButton.isSelected()) {
+                gender = maleButton.getText();
+            } else if (femaleButton.isSelected()) {
+                gender = femaleButton.getText();
+            }
+
+            try {
+                sys.addPerson(username, email, password, gender, userType);
+            } catch(UserAlreadyExistsException er) {
+                JOptionPane.showMessageDialog(this, er.getMessage());
+            }
+
+
+
+            System.out.printf("username: %s email: %s password: %s userType: %s sex: %s\n", username, email, password, userType, gender);
+
         }
 
-        System.out.printf("name: %s email: %s password: %s userType: %s sex: %s\n", name, email, password, userType, sex);
+        if (e.getSource() == goBackButton) {
+            // Open the register UI
+            LoginOrRegister loginOrRegister = new LoginOrRegister(sys);
+            loginOrRegister.run();
+            dispose();
+        }
 
     }
+
+
 }
