@@ -1,14 +1,15 @@
 package UI.SignInUP;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 import Exceptions.MissingInfoException;
 import Exceptions.UserNotExistsException;
 import Exceptions.WrongDataException;
 import System.AirlineSystem;
 import UI.MainMenu.UserMenu;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginForm extends JFrame implements ActionListener {
     private JLabel emailLabel, passwordLabel;
@@ -96,8 +97,9 @@ public class LoginForm extends JFrame implements ActionListener {
             }catch(MissingInfoException | UserNotExistsException | WrongDataException er){
                 JOptionPane.showMessageDialog(this, er.getMessage());
             }
+            setVisible(false);
+            new UserMenu(sys).run();
 
-            new UserMenu().run();
 
         }
 

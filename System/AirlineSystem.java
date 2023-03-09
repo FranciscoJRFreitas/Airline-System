@@ -2,27 +2,38 @@ package System;
 
 import Exceptions.*;
 import Persons.*;
+import Flights.*;
 
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AirlineSystem {
 
-    private HashMap<String, User> usersByEmail;
-    private HashMap<String, Manager> managersByEmail;
-    private HashMap<String, Admin> adminsByEmail;
-    private HashMap<String, String> userByPass;
+    private Map<String, User> usersByEmail;
+    private Map<String, Manager> managersByEmail;
+    private Map<String, Admin> adminsByEmail;
+    private Map<String, String> userByPass;
+
+    private Map<String, Flight> flightsByNum;
+
+
+
 
     public AirlineSystem(){
         usersByEmail = new HashMap<>();
         managersByEmail = new HashMap<>();
         userByPass = new HashMap<>();
         adminsByEmail = new HashMap<>();
+        flightsByNum = new HashMap<>();
     }
 
     private boolean hasUser(String email){return usersByEmail.containsKey(email);}
     private boolean hasManager(String email){return managersByEmail.containsKey(email);}
     private boolean hasAdmin(String email){return adminsByEmail.containsKey(email);}
+
+    private boolean hasFlight(String nVoo){return flightsByNum.containsKey(nVoo);}
     public void addPerson(String username, String email, String password, String gender, String userType) throws UserAlreadyExistsException, MissingInfoException {
         if (username.equals("") || password.equals("") || userType.equals("") || gender.equals(""))
             throw new MissingInfoException();
@@ -67,6 +78,16 @@ public class AirlineSystem {
             throw new WrongDataException();
     }
 
+    public void addFlight(String nVoo, String nAirPlane, String origin, String destination,
+                          LocalDate arrival, LocalDate departure, String pilotName) throws FlightAlreadyInSystem{
+
+        if(hasFlight(nVoo))
+            throw new FlightAlreadyInSystem();
+
+
+        Flight f = new FlightClass(nVoo, nAirPlane, origin, destination, arrival, departure, pilotName);
+        flightsByNum.put(nVoo, f);
+    }
 
 
 
