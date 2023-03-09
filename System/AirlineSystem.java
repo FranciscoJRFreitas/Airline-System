@@ -17,6 +17,7 @@ public class AirlineSystem {
     private Map<String, String> userByPass;
 
     private Map<String, Flight> flightsByNum;
+    private SortedSet<Flight> flightsOrdered;
 
 
 

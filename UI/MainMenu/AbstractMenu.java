@@ -37,5 +37,7 @@ public abstract class AbstractMenu extends JFrame {
 
     // abstract method for adding menu items
     protected abstract void addMenuItems();
+
+
 }
 

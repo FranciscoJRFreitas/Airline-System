@@ -2,6 +2,7 @@ package UI.FlightMenu;
 
 import Exceptions.*;
 import System.AirlineSystem;
+import UI.MainMenu.UserMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,6 +79,8 @@ public class FlightMenu extends JFrame implements ActionListener {
             try {
                 sys.addFlight(flightNumber,planeNumber, origin, destination, departureDate, arrivalDate, pilotName);
                 JOptionPane.showMessageDialog(this, "Flight added");
+                setVisible(false);
+                new UserMenu(sys).run();
             }catch(FlightAlreadyInSystem er){
                 JOptionPane.showMessageDialog(this, er.getMessage());
             }
